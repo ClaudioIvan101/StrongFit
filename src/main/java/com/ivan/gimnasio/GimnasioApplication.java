@@ -1,6 +1,7 @@
 package com.ivan.gimnasio;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -17,7 +18,13 @@ public class GimnasioApplication extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-stage.setTitle("StrongFit");
+var context = SpringApplication.run(GimnasioApplication.class);
+var fxml = new FXMLLoader(getClass().getResource("/fxml/Main.fxml"));
+fxml.setControllerFactory(context::getBean);
+var scene = new Scene(fxml.load());
+String titulo = context.getBean("titulo", String.class);
+stage.setScene(scene);
+stage.setTitle(titulo);
 stage.show();
 	}
 }
