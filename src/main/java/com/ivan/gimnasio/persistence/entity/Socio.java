@@ -1,11 +1,14 @@
 package com.ivan.gimnasio.persistence.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.ivan.gimnasio.util.EstadoCuota;
+import jakarta.persistence.*;
+
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Socio {
@@ -19,6 +22,33 @@ public class Socio {
     private String email;
     private String telefono;
     private LocalDate fechaInscripcion;
+    @Column(nullable = false)
+    private boolean activo = true;
+    @Enumerated(EnumType.STRING)
+    private EstadoCuota estadoCuota;
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "socio_membresia",
+            joinColumns = @JoinColumn(name = "socio_id"),
+            inverseJoinColumns = @JoinColumn(name = "membresia_id")
+    )
+    private Set<Membresia> membresias = new HashSet<>();
+
+    public Set<Membresia> getMembresias() {
+        return membresias;
+    }
+
+    public void setMembresias(Set<Membresia> membresias) {
+        this.membresias = membresias;
+    }
 
     public Long getId() {
         return id;
@@ -74,5 +104,17 @@ public class Socio {
 
     public void setFechaInscripcion(LocalDate fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
+    }
+
+    public EstadoCuota getEstadoCuota() {
+        if (fechaInscripcion.plusDays(30).isBefore(LocalDate.now())) {
+            return EstadoCuota.VENCIDA;
+        } else {
+            return EstadoCuota.AL_DIA;
+        }
+    }
+    @Override
+    public String toString() {
+        return nombre + " " + apellido + " (" + dni + ")";
     }
 }

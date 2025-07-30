@@ -1,0 +1,178 @@
+/////// ESTILOS DEL MAIN ////////
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #1e1e1e;
+}
+
+/* Barra lateral */
+.sidebar {
+    -fx-background-color: #2c2c2c;
+    -fx-spacing: 2;
+}
+
+/* Botones de la sidebar */
+.sidebar Button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-pref-width: 140px;
+    -fx-padding: 10 0;
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_LEFT;
+    -fx-graphic-text-gap: 5;
+}
+
+.sidebar Button:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-cursor: hand;
+    -fx-border-radius: 8;
+}
+
+/* Panel central */
+.content-pane {
+    -fx-background-color: #121212;
+    -fx-padding: 20;
+}
+
+/* Panel principal que contiene la información de socio */
+.main-panel {
+    -fx-background-color: #0c161e;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-spacing: 16;
+    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 8, 0.3, 0, 3);
+    -fx-max-width: 800px;
+    -fx-max-height: 500px;
+    -fx-alignment: CENTER;
+}
+
+/* Barra superior */
+.top-bar {
+    -fx-background-color: #202020;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0.3, 0, 2);
+}
+
+/* TextField */
+.text-field {
+    -fx-background-radius: 8;
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: white;
+    -fx-border-color: #444;
+    -fx-border-radius: 8;
+    -fx-font-size: 13px;
+    -fx-padding: 8 12;
+}
+
+.text-field:focused {
+    -fx-border-color: #4CAF50;
+    -fx-background-color: #1e1e1e;
+}
+
+/* Botones */
+.button {
+    -fx-background-radius: 5;
+    -fx-padding: 10 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-background-color: #4CAF50;
+    -fx-cursor: hand;
+    -fx-effect: none;
+    -fx-border-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
+
+.button:pressed {
+    -fx-background-color: #256424;
+}
+
+/* Imagen del logo u otras imágenes */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 6, 0.2, 0, 2);
+}
+
+/* Ajustes para que VBox no tape el buscador */
+.vbox-central {
+    -fx-padding: 30 20 20 20;
+    -fx-spacing: 20;
+    -fx-alignment: TOP_CENTER;
+}
+.contenedor-centrado {
+    -fx-alignment: TOP_CENTER;
+    -fx-padding: 10;
+}
+// CARD
+/* Tipografía principal */
+.label-nombre {
+    -fx-font-size: 20px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.label-info {
+    -fx-font-size: 15px;
+    -fx-text-fill: #b0b0b0;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.label-estado {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estados */
+.estado-al-dia {
+    -fx-text-fill: #81c784; /* verde pastel suave */
+}
+
+.estado-vencida {
+    -fx-text-fill: #e57373; /* rojo pastel suave */
+}
+
+/* Tarjeta (card) */
+.card {
+    -fx-padding: 24px;
+    -fx-background-radius: 12px;
+    -fx-background-color: #1f2937; /* azul oscuro grisáceo */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 4);
+    -fx-border-radius: 12px;
+    -fx-border-color: #374151; /* borde gris oscuro */
+    -fx-border-width: 1px;
+    -fx-spacing: 10px;
+}
+
+/* Cuando la cuota está vencida, se hace un leve cambio de color */
+.card-vencida {
+    -fx-background-color: #3b1a1a; /* rojo oscuro muy sutil */
+    -fx-border-color: #b91c1c; /* borde rojo suave */
+}
+
+/* Cuando está al día */
+.card-al-dia {
+    -fx-background-color: #1f2937; /* mantiene el azul grisáceo base */
+    -fx-border-color: #256d24; /* borde verde oscuro */
+}
+/* ListView personalizado para resultados de búsqueda */
+#listaResultados {
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 2;
+    -fx-background-color: #23233a;
+    -fx-padding: 6 0 6 0;
+    -fx-font-size: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(76,175,80,0.15), 8, 0.2, 0, 2);
+}
+
+#listaResultados .list-cell.celda-socio {
+    -fx-background-color: transparent;
+    -fx-text-fill: #E0E0E0;
+    -fx-font-size: 12px;
+    -fx-padding: 3 10;
+    }

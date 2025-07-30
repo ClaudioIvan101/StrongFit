@@ -1,0 +1,216 @@
+#formSocio {
+    -fx-background-color: #1E1E2F; /* fondo oscuro, azul grisáceo */
+    -fx-padding: 30;
+    -fx-spacing: 20;
+    -fx-alignment: center;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 20, 0.5, 0, 8);
+    -fx-border-color: #2A2A3D;
+    -fx-border-radius: 16;
+    -fx-pref-width: 320px;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #E0E0E0;
+}
+
+.text-field {
+    -fx-background-radius: 12;
+    -fx-padding: 12 15;
+    -fx-font-size: 14px;
+    -fx-border-color: #555A72;
+    -fx-border-width: 1.5;
+    -fx-background-color: #2A2A3D;
+    -fx-prompt-text-fill: #7A7E94;
+    -fx-text-fill: #E0E0E0;
+    -fx-effect: none;
+    -fx-transition: all 0.3s ease;
+}
+
+.text-field:focused {
+    -fx-border-color: #4CAF50;
+    -fx-background-color: #35354B;
+    -fx-effect: dropshadow(gaussian, rgba(76, 175, 80, 0.5), 8, 0.3, 0, 0);
+}
+
+.list-view {
+    -fx-background-radius: 10;
+    -fx-border-color: #555A72;
+    -fx-padding: 6;
+    -fx-background-color: #2A2A3D;
+    -fx-font-size: 14px;
+    -fx-text-fill: #E0E0E0;
+    -fx-control-inner-background: #2A2A3D;
+    -fx-background-insets: 0;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #388E3C, #2E7D32);
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-font-size: 14px;
+    -fx-background-radius: 12;
+    -fx-padding: 12 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(34, 139, 34, 0.5), 8, 0.3, 0, 3);
+    -fx-transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #4CAF50, #388E3C);
+}
+
+.button:pressed {
+    -fx-background-color: #256424;
+    -fx-effect: none;
+}
+
+.tooltip {
+    -fx-font-size: 12px;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+}
+
+
+//////////// TABLAAASS ////////////
+.table-button {
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0.1, 0, 1);
+    -fx-border-color: transparent;
+}
+
+.table-button:hover {
+    -fx-background-color: #3A3F5C;
+    -fx-effect: dropshadow(gaussian, rgba(76,175,80,0.4), 4, 0.3, 0, 0);
+}
+
+.table-button:pressed {
+    -fx-background-color: #2E3440;
+    -fx-effect: none;
+}
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #2A2A3D;
+    -fx-border-radius: 10;
+    -fx-padding: 5;
+    -fx-table-cell-border-color: transparent;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    -fx-text-fill: #49505a;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #2E2E3E;
+    -fx-border-radius: 10 10 0 0;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #CCCCCC;
+    -fx-font-weight: bold;
+    -fx-padding: 8 0;
+    -fx-font-size: 12px;
+}
+
+.table-view .table-cell {
+    -fx-background-color: #0c161e;
+    -fx-alignment: CENTER_LEFT;
+    -fx-text-fill: #DADADA;
+    -fx-padding: 6 10;
+    -fx-font-size: 13px;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #3A3A50 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #3B3B4D; /* menos luminosa que antes */
+}
+
+.table-view .table-row-cell:filled:selected {
+    -fx-background-color: #388E3C; /* verde más apagado */
+    -fx-text-fill: white;
+}
+
+.table-view .table-row-cell:filled:selected .text {
+    -fx-fill: white;
+}
+.card {
+    -fx-background-color: #2E2E3E;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);
+}
+.card {
+    -fx-background-color: #2b2b3d;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.3, 0, 4);
+}
+.label-nombre {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.label-info {
+    -fx-font-size: 14px;
+    -fx-text-fill: lightgray;
+}
+
+////////// CARD ///////
+#socioFichaView {
+    -fx-background-color: linear-gradient(to bottom right, #1C1C2D, #24243e);
+    -fx-padding: 40;
+    -fx-background-radius: 20;
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+.socio-card {
+    -fx-background-color: #2C2C3E;
+    -fx-background-radius: 18;
+    -fx-padding: 35;
+    -fx-spacing: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 16, 0.4, 0, 5);
+}
+
+.socio-foto {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 10, 0.3, 0, 4);
+    -fx-background-radius: 10;
+    -fx-border-radius: 12;
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 2;
+}
+
+.socio-nombre {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAFAFA;
+}
+
+.socio-info {
+    -fx-font-size: 16px;
+    -fx-text-fill: #CCCCCC;
+}
+
+.socio-estado {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-background-color: #4CAF50;
+    -fx-background-radius: 10;
+    -fx-padding: 6 12;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+
