@@ -14,6 +14,7 @@ import com.ivan.gimnasio.service.interfaces.IMembresiaService;
 import com.ivan.gimnasio.service.interfaces.ISocioService;
 import com.ivan.gimnasio.util.AlertaUtil;
 import com.ivan.gimnasio.util.EstadoCuota;
+import com.ivan.gimnasio.util.VentanaUtil;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
@@ -178,13 +179,7 @@ public class ControllerUI {
     @FXML
     void mostrarAsistencias(ActionEvent event) throws IOException {
         // Abre la ventana de listado de socios en una nueva Stage
-        FXMLLoader loader = springFXMLLoader.load("/fxml/ListarAsistencias.fxml");
-        Parent root = loader.load(); // importante: llamar a .load() después
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Asistencias");
-        stage.setResizable(false);
-        stage.show();
+        VentanaUtil.abrirModal(springFXMLLoader, "/fxml/ListarAsistencias.fxml", "Asistencias de Socios", null);
     }
     @FXML
     void buscarSocioPorFicha(ActionEvent event) throws IOException {
@@ -201,17 +196,9 @@ public class ControllerUI {
         }
         // Carga la vista de ficha de socio
         try {
-            FXMLLoader loader = springFXMLLoader.load("/fxml/SocioCard.fxml");
-            Parent root = loader.load();
-
-            SocioCardController controller = loader.getController();
-            controller.setSocio(socio);
-            // cargar el modal
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Ficha de Socio: " + socio.getNombre() + " " + socio.getApellido());
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            VentanaUtil.abrirModal(springFXMLLoader, "/fxml/SocioCard.fxml", "Ficha de Socio", controller -> {
+                ((SocioCardController) controller).setSocio(socio);
+            });
         }catch (Exception e) {
             AlertaUtil.mostrarError("Error al cargar la ficha del socio: " + e.getMessage());
             e.printStackTrace();
@@ -220,28 +207,15 @@ public class ControllerUI {
     @FXML
     void mostrarSocios(ActionEvent event) throws IOException {
         // Abre la ventana de listado de socios en una nueva Stage
-        FXMLLoader loader = springFXMLLoader.load("/fxml/listarSocios.fxml");
-        Parent root = loader.load(); // importante: llamar a .load() después
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Lista de Socios");
-        stage.setResizable(false);
-        stage.show();
+        VentanaUtil.abrirModal(springFXMLLoader, "/fxml/ListarSocios.fxml", "Listado de Socios", null);
     }
     @FXML
     public void listarSociosConCuotaVencida() throws IOException {
-        FXMLLoader loader = springFXMLLoader.load("/fxml/ListarSocios.fxml");
-        Parent root = loader.load();
-
-        ListarSociosController controller = loader.getController();
-        controller.setFiltroEstadoCuota(EstadoCuota.VENCIDA);
-        controller.cargarSocios();
-
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Socios con cuota vencida");
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
+        VentanaUtil.abrirModal(springFXMLLoader, "/fxml/ListarSocios.fxml", "Socios con cuota vencida", controller -> {
+            ListarSociosController listarController = (ListarSociosController) controller;
+            listarController.setFiltroEstadoCuota(EstadoCuota.VENCIDA);
+            listarController.cargarSocios();
+        });
     }
     @FXML
     public void mostrarTarjeta() throws IOException {
@@ -381,6 +355,7 @@ public class ControllerUI {
 
         fade.play();
     }
+    
     //////////////////////////////////////////////////////////
     //              BEAN SPRING DE PRUEBA                  ///
     //////////////////////////////////////////////////////////
