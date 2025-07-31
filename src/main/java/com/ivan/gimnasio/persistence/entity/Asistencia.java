@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "asistencias")
 public class Asistencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "socio_id", nullable = false)
     private Socio socio;
 
     private LocalDateTime fechaHora;

@@ -9,10 +9,12 @@ import com.ivan.gimnasio.persistence.entity.Membresia;
 import com.ivan.gimnasio.persistence.entity.Socio;
 import com.ivan.gimnasio.presentation.controller.ListarSociosController;
 import com.ivan.gimnasio.presentation.controller.SocioCardController;
+import com.ivan.gimnasio.service.interfaces.IAsistenciaService;
 import com.ivan.gimnasio.service.interfaces.IMembresiaService;
 import com.ivan.gimnasio.service.interfaces.ISocioService;
 import com.ivan.gimnasio.util.AlertaUtil;
 import com.ivan.gimnasio.util.EstadoCuota;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -29,11 +31,15 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import java.net.URL;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -64,13 +70,14 @@ public class ControllerUI {
     @FXML private TextField buscarSocioPorDni;
     @FXML private TextField buscarSocioPorFicha;
     @FXML private ListView<Membresia> listViewMembresias;
-    @FXML
-    private BorderPane rootPane;
+    @FXML private BorderPane rootPane;
+    @FXML private VBox subMenuTarjetas;
+    @FXML private VBox subMenuSocios;
     AlertaUtil alertaUtil;
     @Autowired private SpringFXMLLoader springFXMLLoader;
     @Autowired private ApplicationContext context;
     @Autowired private IMembresiaService membresiaService;
-
+    @Autowired private IAsistenciaService asistenciaService;
     private final ISocioService socioService;
     private StackPane vistaAnterior;
 
@@ -96,7 +103,14 @@ public class ControllerUI {
         listaResultados.setOnMouseClicked(event -> {
             Socio socioSeleccionado = listaResultados.getSelectionModel().getSelectedItem();
             if (socioSeleccionado != null) {
-                mostrarFichaSocio(socioSeleccionado);
+                try {
+                    asistenciaService.registrarAsistencia(socioSeleccionado);
+                    AlertaUtil.mostrarInfo("✅ Asistencia registrada correctamente.");
+                    Socio socioActualizado = socioService.buscarSocioPorDni(socioSeleccionado.getDni());
+                    mostrarFichaSocio(socioActualizado);
+                } catch (IllegalStateException e) {
+                    AlertaUtil.mostrarError("⚠️ " + e.getMessage());
+                }
             }
         });
         listaResultados.setCellFactory(lv -> new ListCell<Socio>() {
@@ -138,7 +152,15 @@ public class ControllerUI {
                 return; // Si no se confirma, no se muestra la ficha
             }
         }
-            mostrarFichaSocio(socio);     // Y lo usás
+        try {
+            asistenciaService.registrarAsistencia(socio);
+            AlertaUtil.mostrarInfo("✅ Asistencia registrada correctamente.");
+            Socio socioActualizado = socioService.buscarSocioPorDni(socio.getDni());
+            mostrarFichaSocio(socioActualizado);
+        } catch (IllegalStateException e) {
+            AlertaUtil.mostrarError("⚠️ " + e.getMessage());
+        }
+// Y lo usás
     }
     @FXML
     void restaurarMembresias(ActionEvent event) {
@@ -153,7 +175,17 @@ public class ControllerUI {
     public void mostrarRegistrarSocio() throws IOException {
         cargarVista("RegistrarSocio.fxml");
     }
-
+    @FXML
+    void mostrarAsistencias(ActionEvent event) throws IOException {
+        // Abre la ventana de listado de socios en una nueva Stage
+        FXMLLoader loader = springFXMLLoader.load("/fxml/ListarAsistencias.fxml");
+        Parent root = loader.load(); // importante: llamar a .load() después
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Asistencias");
+        stage.setResizable(false);
+        stage.show();
+    }
     @FXML
     void buscarSocioPorFicha(ActionEvent event) throws IOException {
         // Obtiene el socio seleccionado de la tabla
@@ -174,9 +206,7 @@ public class ControllerUI {
 
             SocioCardController controller = loader.getController();
             controller.setSocio(socio);
-
             // cargar el modal
-
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Ficha de Socio: " + socio.getNombre() + " " + socio.getApellido());
@@ -215,7 +245,11 @@ public class ControllerUI {
     }
     @FXML
     public void mostrarTarjeta() throws IOException {
-
+       toggleSubMenu(subMenuTarjetas);
+    }
+    @FXML
+    public void mostrarMenuSocios() throws IOException {
+        toggleSubMenu(subMenuSocios);
     }
 
     @FXML
@@ -254,21 +288,6 @@ public class ControllerUI {
         }
     }
 
-    // Versión alternativa para cargar una vista en el AnchorPane principal
-    public void cargarVistaDos(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + fxml));
-        loader.setControllerFactory(context::getBean);
-        Parent vista = loader.load();
-
-        principal.getChildren().clear();
-        principal.getChildren().setAll(vista);
-
-        // Anclaje automático a todos los bordes
-        AnchorPane.setTopAnchor(vista, 0.0);
-        AnchorPane.setBottomAnchor(vista, 0.0);
-        AnchorPane.setLeftAnchor(vista, 0.0);
-        AnchorPane.setRightAnchor(vista, 0.0);
-    }
     public void mostrarFichaSocio(Socio socio) {
         Socio socioCompleto = socioService.buscarSocioPorDni(socio.getDni());
         if (socioCompleto == null) {
@@ -318,11 +337,50 @@ public class ControllerUI {
             card.getStyleClass().add("card-vencida");
             estadoLabel.getStyleClass().add("estado-vencida");
         }
+        LocalDate inicioSemana = LocalDate.now().with(DayOfWeek.MONDAY);
+        LocalDateTime desdeSemana = inicioSemana.atStartOfDay();
+        LocalDateTime hastaSemana = LocalDate.now().atTime(LocalTime.MAX);
 
+        List<LocalDate> diasAsistidos = asistenciaService.obtenerDiasAsistidosSemana(socio.getDni(), desdeSemana, hastaSemana);
+        int asistenciasSemana = diasAsistidos.size();
+        Set<Membresia> membresiasParaContar = socio.getMembresias();
+        int limiteSemanal = membresiasParaContar.stream()
+                .mapToInt(Membresia::getLimiteSemanal)
+                .max()
+                .orElse(5);
+
+        int asistenciasHoy = asistenciaService.contarAsistenciasHoy(socio.getDni());
+        Label asistenciasSemanaLabel = new Label("Asistencias esta semana: " + asistenciasSemana + "/" + limiteSemanal);
+        asistenciasSemanaLabel.getStyleClass().add("label-info");
+        info.getChildren().add(asistenciasSemanaLabel);
+        if (asistenciasHoy > 1) {
+            Label asistenciasHoyLabel = new Label("Asistencias hoy: " + asistenciasHoy);
+            asistenciasHoyLabel.getStyleClass().add("label-info");
+            info.getChildren().add(asistenciasHoyLabel);
+        }
         info.getChildren().add(estadoLabel);
         contenedorCentrado.getChildren().add(card);
     }
+    private void toggleSubMenu(VBox subMenu) {
+        boolean visible = subMenu.isVisible();
+        FadeTransition fade = new FadeTransition(Duration.millis(150), subMenu);
 
+        if (visible) {
+            fade.setFromValue(1);
+            fade.setToValue(0);
+            fade.setOnFinished(e -> {
+                subMenu.setVisible(false);
+                subMenu.setManaged(false);
+            });
+        } else {
+            subMenu.setManaged(true);
+            subMenu.setVisible(true);
+            fade.setFromValue(0);
+            fade.setToValue(1);
+        }
+
+        fade.play();
+    }
     //////////////////////////////////////////////////////////
     //              BEAN SPRING DE PRUEBA                  ///
     //////////////////////////////////////////////////////////

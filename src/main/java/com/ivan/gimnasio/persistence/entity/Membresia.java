@@ -34,6 +34,16 @@ public class Membresia {
     private Set<Socio> socios = new HashSet<>();
     @Column(nullable = false)
     private boolean activo = true;
+    private int limiteSemanal;
+
+    public int getLimiteSemanal() {
+        return limiteSemanal;
+    }
+
+    public void setLimiteSemanal(int limiteSemanal) {
+        this.limiteSemanal = limiteSemanal;
+    }
+
     public Membresia() {
     }
 

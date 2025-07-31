@@ -8,44 +8,53 @@
 .sidebar {
     -fx-background-color: #2c2c2c;
     -fx-spacing: 2;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0.1, 2, 0);
 }
 
 /* Botones de la sidebar */
 .sidebar Button {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-size: 13px;
+    -fx-text-fill: #cccccc;
+    -fx-font-size: 12px;
     -fx-pref-width: 140px;
-    -fx-padding: 10 0;
-    -fx-spacing: 10;
+    -fx-padding: 8 12;
     -fx-alignment: CENTER_LEFT;
-    -fx-graphic-text-gap: 5;
+    -fx-graphic-text-gap: 10;
+    -fx-effect: none;
+    -fx-opacity: 0.85;
+    -fx-background-radius: 8;
+    -fx-transition: all 0.2s ease-in-out;
 }
 
 .sidebar Button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #383838;
+    -fx-text-fill: white;
+    -fx-opacity: 1.0;
     -fx-cursor: hand;
-    -fx-border-radius: 8;
 }
 
 /* Panel central */
 .content-pane {
-    -fx-background-color: #121212;
-    -fx-padding: 20;
+    -fx-background-color: #171717;
+    -fx-padding: 30;
 }
 
 /* Panel principal que contiene la información de socio */
 .main-panel {
-    -fx-background-color: #0c161e;
-    -fx-background-radius: 12;
+    -fx-background-color: #1e1e1e;
+    -fx-background-radius: 14;
     -fx-padding: 20;
-    -fx-spacing: 16;
-    -fx-effect: innershadow(gaussian, rgba(0,0,0,0.5), 8, 0.3, 0, 3);
-    -fx-max-width: 800px;
-    -fx-max-height: 500px;
-    -fx-alignment: CENTER;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 6, 0.2, 0, 3);
+    -fx-border-color: #2a2a2a;
+    -fx-border-radius: 14;
 }
 
+.submenu-button {
+-fx-font-size: 9px;
+    -fx-padding: 2 8;
+    -fx-pref-height: 22px;
+    -fx-background-radius: 6;
+}
 /* Barra superior */
 .top-bar {
     -fx-background-color: #202020;
@@ -55,13 +64,13 @@
 
 /* TextField */
 .text-field {
-    -fx-background-radius: 8;
-    -fx-background-color: #2d2d2d;
-    -fx-text-fill: white;
-    -fx-border-color: #444;
-    -fx-border-radius: 8;
+    -fx-background-color: #262626;
+    -fx-border-color: #444444;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #dddddd;
     -fx-font-size: 13px;
-    -fx-padding: 8 12;
+    -fx-padding: 8 10;
 }
 
 .text-field:focused {
@@ -71,28 +80,36 @@
 
 /* Botones */
 .button {
-    -fx-background-radius: 5;
-    -fx-padding: 10 20;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-    -fx-font-size: 10px;
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #3c3c3c;
+    -fx-text-fill: #dddddd;
+    -fx-font-size: 12px;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
     -fx-cursor: hand;
-    -fx-effect: none;
     -fx-border-color: transparent;
+    -fx-transition: all 0.2s ease-in-out;
 }
 
 .button:hover {
-    -fx-background-color: #45a049;
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
 }
 
 .button:pressed {
-    -fx-background-color: #256424;
+    -fx-background-color: #388e3c;
 }
 
 /* Imagen del logo u otras imágenes */
 .image-view {
+    -fx-smooth: true;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 6, 0.2, 0, 2);
+}
+#btnListarSociosConCuotaVencida {
+    -fx-text-fill: #ff7f7f;
+}
+
+#btnListarSociosConCuotaVencida:hover {
+    -fx-background-color: #401818;
 }
 
 /* Ajustes para que VBox no tape el buscador */
@@ -160,19 +177,17 @@
 }
 /* ListView personalizado para resultados de búsqueda */
 #listaResultados {
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-border-color: #4CAF50;
-    -fx-border-width: 2;
-    -fx-background-color: #23233a;
-    -fx-padding: 6 0 6 0;
-    -fx-font-size: 15px;
-    -fx-effect: dropshadow(gaussian, rgba(76,175,80,0.15), 8, 0.2, 0, 2);
+    -fx-background-color: #1e1e2e;
+    -fx-border-color: #3c3c3c;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-size: 13px;
+    -fx-padding: 6;
 }
 
 #listaResultados .list-cell.celda-socio {
     -fx-background-color: transparent;
-    -fx-text-fill: #E0E0E0;
-    -fx-font-size: 12px;
-    -fx-padding: 3 10;
-    }
+    -fx-text-fill: #cccccc;
+    -fx-padding: 4 10;
+}
+

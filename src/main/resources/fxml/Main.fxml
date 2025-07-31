@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.geometry.Insets?>
 <BorderPane prefHeight="579.0" prefWidth="788.0"
             xmlns="http://javafx.com/javafx/24.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -20,17 +21,20 @@
 
     <!-- Barra lateral -->
     <left>
-        <VBox fx:id="sidebar" styleClass="sidebar" prefWidth="120.0" spacing="10">
-            <Pane prefHeight="102.0" prefWidth="105.0">
+        <VBox fx:id="sidebar" styleClass="sidebar" prefWidth="120.0" spacing="10" alignment="TOP_CENTER">
+            <Pane prefHeight="100.0" prefWidth="100.0">
                 <children>
-                    <ImageView fitHeight="123.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                    <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
                         <image>
                             <Image url="@/img/1.png" />
                         </image>
                     </ImageView>
                 </children>
             </Pane>
-            <Button onAction="#mostrarRegistrarSocio" text="Socios">
+            <Button onAction="#mostrarMenuSocios" text="Socios">
+                <VBox.margin>
+                    <Insets top="10"/>
+                </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
                         <image>
@@ -39,8 +43,34 @@
                     </ImageView>
                 </graphic>
             </Button>
+            <VBox fx:id="subMenuSocios" visible="false" managed="false" spacing="5" alignment="CENTER">
+                <Button fx:id="btnRegistrarSocios" onAction="#mostrarRegistrarSocio" text="Registrar">
+                    <VBox.margin>
+                        <Insets top="3"/>
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="btnListarSocios" onAction="#mostrarSocios" text="Listar">
+                    <VBox.margin>
+                        <Insets top="3"/>
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="btnListarSociosConCuotaVencida" onAction="#listarSociosConCuotaVencida" text="Socios Vencidos">
+                    <VBox.margin>
+                        <Insets top="3"/>
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="btnMostraAsistencias" onAction="#mostrarAsistencias" text="Asistencias">
+                    <VBox.margin>
+                        <Insets top="3"/>
+                    </VBox.margin>
+                </Button>
+            </VBox>
 
-            <Button fx:id="tarjetas" onAction="#mostrarTarjeta" text="Tarjetas">
+
+            <Button fx:id="Productos" onAction="#mostrarTarjeta" text="Tarjetas">
+                <VBox.margin>
+                    <Insets top="10"/>
+                </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
                         <image>
@@ -49,8 +79,16 @@
                     </ImageView>
                 </graphic>
             </Button>
+            <VBox fx:id="subMenuTarjetas" visible="false" managed="false" spacing="5" alignment="CENTER">
+                <Button text="Registra Productos" styleClass="submenu-button"/>
+                <Button text="Mis Productos" styleClass="submenu-button"/>
+            </VBox>
+
 
             <Button fx:id="btnMostrarMembresias" onAction="#mostrarMembresias" text="Membresías">
+                <VBox.margin>
+                    <Insets top="10"/>
+                </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
                         <image>
@@ -60,7 +98,10 @@
                 </graphic>
             </Button>
 
-            <Button fx:id="btnListarSocios" onAction="#mostrarSocios" text="Listar">
+            <Button fx:id="btnRandom" onAction="#restaurarMembresias" text="Restaurar">
+                <VBox.margin>
+                    <Insets top="10"/>
+                </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
                         <image>
@@ -69,16 +110,10 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button fx:id="btnRandom" onAction="#restaurarMembresias" text="random">
-                <graphic>
-                    <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
-                        <image>
-                            <Image url="@/img/iconPerson.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button fx:id="btnListarSociosConCuotaVencida" onAction="#listarSociosConCuotaVencida" text="Socios Vencidos">
+            <Button fx:id="Estadisticas" text="Estadisticas">
+                <VBox.margin>
+                    <Insets top="10"/>
+                </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
                         <image>

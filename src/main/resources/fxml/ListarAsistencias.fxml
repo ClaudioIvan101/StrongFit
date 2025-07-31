@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller=""
-            prefHeight="400.0" prefWidth="600.0">
-
+<?import java.net.URL?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ivan.gimnasio.presentation.controller.ListarAsistenciasController" >
+    <stylesheets>
+        <URL value="@/css/ListarAsistencias.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane prefHeight="401.0" prefWidth="712.0">
+         <children>
+            <TableView fx:id="tablaAsistencias" layoutY="96.0" prefHeight="305.0" prefWidth="712.0">
+              <columns>
+                  <TableColumn fx:id="colSocio" text="Socio" />
+                  <TableColumn fx:id="colFecha" text="Fecha y Hora" />
+                  <TableColumn fx:id="colActividad" text="Actividad" />
+                  <TableColumn fx:id="colEstadoCuota" text="Estado" />
+              </columns>
+            </TableView>
+            <DatePicker  fx:id="datePicker" layoutX="14.0" layoutY="31.0" prefHeight="58.0" prefWidth="145.0" />
+            <ComboBox fx:id="comboBox" layoutX="398.0" layoutY="31.0" prefWidth="150.0" />
+            <Label layoutX="398.0" layoutY="14.0" text="FIltrar por actividad" />
+            <Label layoutX="14.0" layoutY="14.0" text="Filtrar por fecha" />
+            <Label layoutX="199.0" layoutY="72.0" text="Asistencias de hoy:" />
+            <Label  fx:id="labelContador" layoutX="305.0" layoutY="72.0" text="0" />
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

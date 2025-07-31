@@ -1,0 +1,99 @@
+/* ListarAsistencias.css */
+
+/* General Styles */
+.root {
+    -fx-background-color: #f5f7fa; /* Light background for a clean look */
+    -fx-font-family: "Segoe UI", sans-serif; /* Modern, clean font */
+    -fx-font-size: 14px;
+}
+
+/* TableView Styling */
+.table-view {
+    -fx-background-color: transparent; /* No background for the table itself */
+    -fx-border-color: #e0e6ed; /* Subtle border for definition */
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #ffffff; /* White background for headers */
+    -fx-border-color: #e0e6ed;
+    -fx-border-width: 0 0 1px 0; /* Bottom border for header separation */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #34495e; /* Darker text for headers */
+    -fx-font-weight: bold;
+    -fx-padding: 10px 0;
+}
+
+.table-view .table-cell {
+    -fx-padding: 8px 10px;
+    -fx-border-color: transparent; /* No cell borders for a cleaner look */
+    -fx-text-fill: #34495e; /* Dark text for content */
+    -fx-alignment: CENTER_LEFT; /* Align text to the left */
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #fcfdfe; /* Slightly different background for odd rows */
+}
+
+.table-view .table-row-cell:even {
+    -fx-background-color: #ffffff; /* White background for even rows */
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #a7d9ff; /* Subtle blue for selected rows */
+    -fx-text-fill: #34495e;
+}
+
+/* DatePicker and ComboBox Styling */
+.date-picker, .combo-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e6ed;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+}
+
+.date-picker .arrow-button, .combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow-button .arrow, .combo-box .arrow-button .arrow {
+    -fx-background-color: #34495e;
+}
+
+.date-picker .text-field, .combo-box .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #34495e;
+}
+
+/* Label Styling */
+.label {
+    -fx-text-fill: #34495e;
+    -fx-font-weight: normal;
+}
+
+/* Specific Label for Contador (if you want it to stand out a bit) */
+#labelContador {
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 0 10px;
+    /* Slightly darker to draw attention */
+}
+
+/* Position Adjustments (optional, consider if needed after applying styles) */
+/* You might need to adjust layoutX/Y in your FXML or add padding here
+   if the elements feel too close after styling. */
+.date-picker {
+    -fx-padding: 5px 10px;
+}
+
+.combo-box {
+    -fx-padding: 5px 10px;
+}
