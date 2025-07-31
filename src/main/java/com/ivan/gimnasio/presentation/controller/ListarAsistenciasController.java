@@ -4,6 +4,7 @@ import com.ivan.gimnasio.persistence.entity.Asistencia;
 import com.ivan.gimnasio.persistence.entity.Socio;
 import com.ivan.gimnasio.persistence.repository.AsistenciaRepository;
 import com.ivan.gimnasio.service.interfaces.IAsistenciaService;
+import com.ivan.gimnasio.ui.ControllerUI;
 import com.ivan.gimnasio.util.EstadoCuota;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -39,6 +40,18 @@ public class ListarAsistenciasController {
     private List<Asistencia> asistenciasDelDia = new ArrayList<>();
     @Autowired
     private IAsistenciaService asistenciaService;
+    private ControllerUI mainController;
+
+    public void setMainController(ControllerUI controller) {
+        this.mainController = controller;
+    }
+
+    @FXML
+    private void cerrarFicha() {
+        if (mainController != null) {
+            mainController.cerrarPanelEmergente();
+        }
+    }
     @FXML
     public void initialize() {
         datePicker.setOnAction(event -> cargarAsistenciasPorFecha(datePicker.getValue()));

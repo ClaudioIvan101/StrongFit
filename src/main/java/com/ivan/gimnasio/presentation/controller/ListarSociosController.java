@@ -5,6 +5,7 @@ import com.ivan.gimnasio.persistence.entity.Membresia;
 import com.ivan.gimnasio.persistence.entity.Socio;
 import com.ivan.gimnasio.service.interfaces.IMembresiaService;
 import com.ivan.gimnasio.service.interfaces.ISocioService;
+import com.ivan.gimnasio.ui.ControllerUI;
 import com.ivan.gimnasio.util.AlertaUtil;
 import com.ivan.gimnasio.util.EstadoCuota;
 import javafx.beans.property.SimpleStringProperty;
@@ -71,7 +72,18 @@ public class ListarSociosController implements Initializable {
         this.membresiaFiltrada = membresia;
         cargarSocios();
     }
+    private ControllerUI mainController;
 
+    public void setMainController(ControllerUI controller) {
+        this.mainController = controller;
+    }
+
+    @FXML
+    private void cerrarFicha() {
+        if (mainController != null) {
+            mainController.cerrarPanelEmergente();
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Configuración de columnas básicas

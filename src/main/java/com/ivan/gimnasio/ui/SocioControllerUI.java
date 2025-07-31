@@ -48,7 +48,18 @@ public class SocioControllerUI {
     public void setControllerUI(ControllerUI controllerUI) {
         this.controllerUI = controllerUI;
     }
+    private ControllerUI mainController;
 
+    public void setMainController(ControllerUI controller) {
+        this.mainController = controller;
+    }
+
+    @FXML
+    private void cerrarFicha() {
+        if (mainController != null) {
+            mainController.cerrarPanelEmergente();
+        }
+    }
     @FXML
     public void initialize() {
         List<Membresia> membresias = membresiaService.obtenerTodas()

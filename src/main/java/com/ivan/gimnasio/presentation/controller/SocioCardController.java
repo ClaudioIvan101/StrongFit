@@ -2,6 +2,7 @@ package com.ivan.gimnasio.presentation.controller;
 
 import com.ivan.gimnasio.persistence.entity.Membresia;
 import com.ivan.gimnasio.persistence.entity.Socio;
+import com.ivan.gimnasio.ui.ControllerUI;
 import com.ivan.gimnasio.util.EstadoCuota;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -37,7 +38,18 @@ public class SocioCardController {
 
     @FXML
     private ImageView fotoImageView;
+    private ControllerUI mainController;
 
+    public void setMainController(ControllerUI controller) {
+        this.mainController = controller;
+    }
+
+    @FXML
+    private void cerrarFicha() {
+        if (mainController != null) {
+            mainController.cerrarPanelEmergente();
+        }
+    }
     public void setSocio(Socio socio) {
         nombreLabel.setText(socio.getNombre() + " " + socio.getApellido());
         dniLabel.setText("DNI: " + socio.getDni());

@@ -7,6 +7,7 @@ package com.ivan.gimnasio.ui;
 import com.ivan.gimnasio.config.app.SpringFXMLLoader;
 import com.ivan.gimnasio.persistence.entity.Membresia;
 import com.ivan.gimnasio.persistence.entity.Socio;
+import com.ivan.gimnasio.presentation.controller.ListarAsistenciasController;
 import com.ivan.gimnasio.presentation.controller.ListarSociosController;
 import com.ivan.gimnasio.presentation.controller.SocioCardController;
 import com.ivan.gimnasio.service.interfaces.IAsistenciaService;
@@ -44,6 +45,7 @@ import java.time.LocalTime;
 import java.util.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 
@@ -61,7 +63,6 @@ public class ControllerUI {
     @FXML private StackPane contentPane;               // Área donde se cargan vistas
     @FXML private AnchorPane principal;                // Panel raíz de la vista
     @FXML private StackPane contenedorCentrado;        // Donde se cargan tarjetas con info
-
     @FXML public TextField txtNombre;
     @FXML public TextField txtDni;
     @FXML public TextField txtEmail;
@@ -71,9 +72,11 @@ public class ControllerUI {
     @FXML private TextField buscarSocioPorDni;
     @FXML private TextField buscarSocioPorFicha;
     @FXML private ListView<Membresia> listViewMembresias;
-    @FXML private BorderPane rootPane;
+    @FXML private StackPane rootPane;
     @FXML private VBox subMenuTarjetas;
     @FXML private VBox subMenuSocios;
+    @FXML private AnchorPane panelEmergente;
+    @FXML private StackPane contenidoEmergente;
     AlertaUtil alertaUtil;
     @Autowired private SpringFXMLLoader springFXMLLoader;
     @Autowired private ApplicationContext context;
@@ -174,12 +177,18 @@ public class ControllerUI {
 
     @FXML
     public void mostrarRegistrarSocio() throws IOException {
-        cargarVista("RegistrarSocio.fxml");
+        cargarEnPanelEmergente("RegistrarSocio.fxml", controller -> {
+            SocioControllerUI socioController = (SocioControllerUI) controller;
+            socioController.setMainController(this);
+        });
     }
     @FXML
     void mostrarAsistencias(ActionEvent event) throws IOException {
         // Abre la ventana de listado de socios en una nueva Stage
-        VentanaUtil.abrirModal(springFXMLLoader, "/fxml/ListarAsistencias.fxml", "Asistencias de Socios", null);
+        cargarEnPanelEmergente("ListarAsistencias.fxml", controller -> {
+            ListarAsistenciasController listarController = (ListarAsistenciasController) controller;
+            listarController.setMainController(this);
+        });
     }
     @FXML
     void buscarSocioPorFicha(ActionEvent event) throws IOException {
@@ -196,8 +205,10 @@ public class ControllerUI {
         }
         // Carga la vista de ficha de socio
         try {
-            VentanaUtil.abrirModal(springFXMLLoader, "/fxml/SocioCard.fxml", "Ficha de Socio", controller -> {
-                ((SocioCardController) controller).setSocio(socio);
+            cargarEnPanelEmergente("SocioCard.fxml", controller -> {
+                SocioCardController ctrl = (SocioCardController) controller;
+                ctrl.setSocio(socio);
+                ctrl.setMainController(this); // `this` es ControllerUI
             });
         }catch (Exception e) {
             AlertaUtil.mostrarError("Error al cargar la ficha del socio: " + e.getMessage());
@@ -207,14 +218,19 @@ public class ControllerUI {
     @FXML
     void mostrarSocios(ActionEvent event) throws IOException {
         // Abre la ventana de listado de socios en una nueva Stage
-        VentanaUtil.abrirModal(springFXMLLoader, "/fxml/ListarSocios.fxml", "Listado de Socios", null);
+        cargarEnPanelEmergente("ListarSocios.fxml",controller -> {
+            ListarSociosController listarController = (ListarSociosController) controller;
+            listarController.setMainController(this);
+            listarController.cargarSocios();
+        });
     }
     @FXML
     public void listarSociosConCuotaVencida() throws IOException {
-        VentanaUtil.abrirModal(springFXMLLoader, "/fxml/ListarSocios.fxml", "Socios con cuota vencida", controller -> {
+        cargarEnPanelEmergente("ListarSocios.fxml", controller -> {
             ListarSociosController listarController = (ListarSociosController) controller;
             listarController.setFiltroEstadoCuota(EstadoCuota.VENCIDA);
             listarController.cargarSocios();
+            listarController.setMainController(this);
         });
     }
     @FXML
@@ -355,7 +371,43 @@ public class ControllerUI {
 
         fade.play();
     }
-    
+    public void cargarEnPanelEmergente(String fxml, Consumer<Object> configurador) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + fxml));
+            loader.setControllerFactory(context::getBean);
+            Parent root = loader.load();
+
+            Object controller = loader.getController();
+            if (configurador != null) {
+                configurador.accept(controller);
+            }
+
+            contenidoEmergente.getChildren().setAll(root);
+            panelEmergente.setVisible(true);
+            panelEmergente.setManaged(true);
+
+            FadeTransition ft = new FadeTransition(Duration.millis(150), panelEmergente);
+            ft.setFromValue(0);
+            ft.setToValue(1);
+            ft.play();
+        } catch (IOException e) {
+            AlertaUtil.mostrarError("Error al cargar el panel: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void cerrarPanelEmergente() {
+        FadeTransition ft = new FadeTransition(Duration.millis(150), panelEmergente);
+        ft.setFromValue(1);
+        ft.setToValue(0);
+        ft.setOnFinished(e -> {
+            panelEmergente.setVisible(false);
+            panelEmergente.setManaged(false);
+            contenidoEmergente.getChildren().clear();
+        });
+        ft.play();
+    }
+
     //////////////////////////////////////////////////////////
     //              BEAN SPRING DE PRUEBA                  ///
     //////////////////////////////////////////////////////////

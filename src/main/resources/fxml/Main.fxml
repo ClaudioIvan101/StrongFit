@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.geometry.Insets?>
-<BorderPane prefHeight="579.0" prefWidth="788.0"
-            xmlns="http://javafx.com/javafx/24.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.ivan.gimnasio.ui.ControllerUI"
-            fx:id="rootPane">
+
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ivan.gimnasio.ui.ControllerUI">
 
     <!-- Barra lateral -->
+    <BorderPane fx:id="mainLayout">
     <left>
-        <VBox fx:id="sidebar" styleClass="sidebar" prefWidth="120.0" spacing="10" alignment="TOP_CENTER">
+        <VBox fx:id="sidebar" alignment="TOP_CENTER" prefHeight="565.0" prefWidth="137.0" spacing="10" styleClass="sidebar">
             <Pane prefHeight="100.0" prefWidth="100.0">
                 <children>
-                    <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
+                    <ImageView fitHeight="110.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" styleClass="image-view">
                         <image>
                             <Image url="@/img/1.png" />
                         </image>
@@ -33,7 +31,7 @@
             </Pane>
             <Button onAction="#mostrarMenuSocios" text="Socios">
                 <VBox.margin>
-                    <Insets top="10"/>
+                    <Insets top="10" />
                 </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
@@ -43,25 +41,25 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <VBox fx:id="subMenuSocios" visible="false" managed="false" spacing="5" alignment="CENTER">
+            <VBox fx:id="subMenuSocios" alignment="CENTER" managed="false" spacing="5" visible="false">
                 <Button fx:id="btnRegistrarSocios" onAction="#mostrarRegistrarSocio" text="Registrar">
                     <VBox.margin>
-                        <Insets top="3"/>
+                        <Insets top="3" />
                     </VBox.margin>
                 </Button>
                 <Button fx:id="btnListarSocios" onAction="#mostrarSocios" text="Listar">
                     <VBox.margin>
-                        <Insets top="3"/>
+                        <Insets top="3" />
                     </VBox.margin>
                 </Button>
                 <Button fx:id="btnListarSociosConCuotaVencida" onAction="#listarSociosConCuotaVencida" text="Socios Vencidos">
                     <VBox.margin>
-                        <Insets top="3"/>
+                        <Insets top="3" />
                     </VBox.margin>
                 </Button>
                 <Button fx:id="btnMostraAsistencias" onAction="#mostrarAsistencias" text="Asistencias">
                     <VBox.margin>
-                        <Insets top="3"/>
+                        <Insets top="3" />
                     </VBox.margin>
                 </Button>
             </VBox>
@@ -69,7 +67,7 @@
 
             <Button fx:id="Productos" onAction="#mostrarTarjeta" text="Tarjetas">
                 <VBox.margin>
-                    <Insets top="10"/>
+                    <Insets top="10" />
                 </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
@@ -79,15 +77,15 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <VBox fx:id="subMenuTarjetas" visible="false" managed="false" spacing="5" alignment="CENTER">
-                <Button text="Registra Productos" styleClass="submenu-button"/>
-                <Button text="Mis Productos" styleClass="submenu-button"/>
+            <VBox fx:id="subMenuTarjetas" alignment="CENTER" managed="false" spacing="5" visible="false">
+                <Button styleClass="submenu-button" text="Registra Productos" />
+                <Button styleClass="submenu-button" text="Mis Productos" />
             </VBox>
 
 
             <Button fx:id="btnMostrarMembresias" onAction="#mostrarMembresias" text="Membresías">
                 <VBox.margin>
-                    <Insets top="10"/>
+                    <Insets top="10" />
                 </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
@@ -100,7 +98,7 @@
 
             <Button fx:id="btnRandom" onAction="#restaurarMembresias" text="Restaurar">
                 <VBox.margin>
-                    <Insets top="10"/>
+                    <Insets top="10" />
                 </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
@@ -112,7 +110,7 @@
             </Button>
             <Button fx:id="Estadisticas" text="Estadisticas">
                 <VBox.margin>
-                    <Insets top="10"/>
+                    <Insets top="10" />
                 </VBox.margin>
                 <graphic>
                     <ImageView fitHeight="33.0" fitWidth="22.0" preserveRatio="true">
@@ -127,39 +125,32 @@
 
     <!-- Contenido central -->
     <center>
-        <StackPane fx:id="contentPane" styleClass="content-pane" alignment="TOP_CENTER">
+        <StackPane fx:id="contentPane" alignment="TOP_CENTER" styleClass="content-pane">
             <VBox spacing="10">
                 <!-- Buscador -->
-                <HBox spacing="10" alignment="CENTER_RIGHT">
-                    <TextField fx:id="buscarSocioPorDni"
-                               onAction="#buscarSocioPorDni"
-                               promptText="Buscar por DNI..."
-                               styleClass="text-field"
-                               prefWidth="280" />
-                    <ListView fx:id="listaResultados" id="listaResultados" prefHeight="120" prefWidth="280"/>
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <TextField fx:id="buscarSocioPorDni" onAction="#buscarSocioPorDni" prefWidth="280" promptText="Buscar por DNI..." styleClass="text-field" />
+                    <ListView id="listaResultados" fx:id="listaResultados" prefHeight="120" prefWidth="280" />
                 </HBox>
 
                 <!-- Contenido -->
-                <AnchorPane fx:id="principal" styleClass="main-panel" prefHeight="400" maxWidth="600">
+                <AnchorPane fx:id="principal" maxWidth="600" prefHeight="400" styleClass="main-panel">
                     <children>
-                        <StackPane fx:id="contenedorCentrado"
-                                   styleClass="contenedor-centrado"
-                                   prefHeight="380.0"
-                                   prefWidth="580.0"
-                                   layoutX="10.0"
-                                   layoutY="10.0" />
+                        <StackPane fx:id="contenedorCentrado" layoutX="10.0" layoutY="10.0" prefHeight="380.0" prefWidth="580.0" styleClass="contenedor-centrado" />
                     </children>
                 </AnchorPane>
                 <!-- Buscador -->
-                <HBox spacing="5" alignment="CENTER_RIGHT">
-                    <Label text="Busca ficha de socio:"/>
-                    <TextField fx:id="buscarSocioPorFicha"
-                               onAction="#buscarSocioPorFicha"
-                               promptText="Ingresar DNI..."
-                               styleClass="text-field"
-                               prefWidth="280" />
+                <HBox alignment="CENTER_RIGHT" spacing="5">
+                    <Label text="Busca ficha de socio:" />
+                    <TextField fx:id="buscarSocioPorFicha" onAction="#buscarSocioPorFicha" prefWidth="280" promptText="Ingresar DNI..." styleClass="text-field" />
                 </HBox>
             </VBox>
         </StackPane>
     </center>
-</BorderPane>
+    </BorderPane>
+    <AnchorPane fx:id="panelEmergente" managed="false" style="-fx-background-color: rgba(0,0,0,0.5);" visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+        <!-- Contenido emergente centrado -->
+        <StackPane fx:id="contenidoEmergente" maxHeight="500" maxWidth="600" style="-fx-background-color: white; -fx-border-radius: 8; -fx-background-radius: 8;" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100" AnchorPane.topAnchor="50" />
+    </AnchorPane>
+</StackPane>

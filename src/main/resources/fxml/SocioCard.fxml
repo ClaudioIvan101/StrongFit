@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Button?>
 <?import java.net.URL?>
 <AnchorPane fx:id="socioFichaView" xmlns:fx="http://javafx.com/fxml" stylesheets="@/css/style.css" prefWidth="850" prefHeight="400" id="socioFichaView" fx:controller="com.ivan.gimnasio.presentation.controller.SocioCardController">
+    <Button text="Cerrar" onAction="#cerrarFicha" />
     <children>
         <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
             <HBox spacing="40" alignment="CENTER_LEFT" styleClass="socio-card">
